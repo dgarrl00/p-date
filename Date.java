@@ -234,7 +234,66 @@ public class Date {
 		}
 		return season;
 	}
-			
+		
+	//Imprime los meses restantes hasta final de año
+	public String printMonthsRemaining() throws DateException{
+		StringBuffer salida = new StringBuffer();
+		Date a = new Date(this.day,this.month,this.year);
+		if(a.getMonth()<12){
+		salida.append("Los meses restantes hasta final de año son: ");
+		}
+		else{
+			salida.append("No queda ningún mes hasta final de año");
+		}
+	
+		for(int i=a.getMonth();i<12;i++){
+			a.month+=1;
+			salida.append(a.getMonthName()+" ");
+		}
+		return salida.toString();
+	}
+	//Intentos necesarios para generar aleatoriamente una fecha empleando un do-while
+	public int attempsNeededDoWhile(){
+		int dia, mes,contador=0;
+		do{
+			mes =(int)(Math.random()*12)+1;
+			if((mes==1)||(mes==3)||(mes==5)||(mes==7)||(mes==8)||(mes==10)||(mes==12)){
+				dia=(int)(Math.random()*31)+1;
+			}
+			else if((mes==4)||(mes==6)||(mes==9)||(mes==11)){
+				dia=(int)(Math.random()*30)+1;
+			}
+			else{
+				dia=(int)(Math.random()*28)+1;
+			}
+			contador++;
+
+		}while((dia!=this.day)||(mes!=this.month));
+		return contador;
+	}	
+
+	//Intentos necesarios para generar aleatoriamente una fecha empleando un while
+	public int attempsNeededWhile(){
+		int dia, mes,contador=0;
+		boolean acierto = false;
+		while(acierto==false){
+			mes =(int)(Math.random()*12)+1;
+			if((mes==1)||(mes==3)||(mes==5)||(mes==7)||(mes==8)||(mes==10)||(mes==12)){
+				dia=(int)(Math.random()*31)+1;
+			}
+			else if((mes==4)||(mes==6)||(mes==9)||(mes==11)){
+				dia=(int)(Math.random()*30)+1;
+			}
+			else{
+				dia=(int)(Math.random()*28)+1;
+			}
+			contador++;
+			if((dia==this.day)&&(mes==this.month)){
+				acierto=true;
+			}
+		}
+		return contador;
+	}
 
 	
 		
