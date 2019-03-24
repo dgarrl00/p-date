@@ -60,7 +60,7 @@ public class Date {
 	
 	//Devolver año
 	public int getYear(){
-		retunr this.year;
+		return this.year;
 	}
 	
 	//Comparar año dadas dos fechas
@@ -294,6 +294,108 @@ public class Date {
 		}
 		return contador;
 	}
+
+	//Cuenta los días que han pasado desde principios de año
+	public int daysPassed(){
+	int contador=0;	
+	for(int i=1;i<this.month;i++){
+		if(i==1||i==3||i==5||i==7||i==8||i==10||i==12){
+			contador+=31;
+		}
+		else if(i==2){
+			contador+=28;
+		}
+		else{
+			contador+=30;
+		}
+	}
+	contador+=this.day;
+	return contador-1;                  //No cuento el día de la fecha, es decir si se introduce la fecha 2 de enero, el programa me dira que ha pasado 1 dia.
+	}
+	//Devuelve el día de la semana al que corresponde una fecha determinada
+	public String dayOfTheWeek(){
+		String dia="";
+		switch(this.daysPassed()%7){   //Tengo en cuenta que el primer dia del año es Lunes, en otro caso, el metodo daría un resultado incorrecto.
+			case 0:
+				dia="Lunes";
+			break;
+			case 1:
+				dia="Martes";
+			break;
+			case 2:
+				dia="Miercoles";
+			break;
+			case 3:
+				dia="Jueves";
+			break;
+			case 4:
+				dia="Viernes";
+			break;
+			case 5:
+				dia="Sabado";
+			break;
+			case 6:
+				dia="Domingo";
+			break;
+		}
+		return dia;
+	}
+	//Devuelve los meses que tienen el mismo número de meses que el mes de una fecha determinada
+	public String monthsSameDays() throws DateException{
+		int [] meses;
+		Date a;
+		a = new Date(1,1,2018);
+		StringBuffer salida = new StringBuffer();
+		salida.append("Los meses con el mismo número de días son: ");
+		switch(this.month){
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				meses=new int[7];
+				meses[0]=1;
+				meses[1]=3;
+				meses[2]=5;
+				meses[3]=7;
+				meses[4]=8;
+				meses[5]=10;
+				meses[6]=12;
+				for(int i=0;i<7;i++){
+					a.month=meses[i];
+					if(meses[i]!=this.month){
+						salida.append(a.getMonthName()+" ");
+					}
+				}
+			break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				meses= new int[4];
+				meses[0]=4;
+				meses[1]=6;
+				meses[2]=9;
+				meses[3]=11;
+				for(int i=0;i<4;i++){
+					a.month=meses[i];
+					if(meses[i]!=this.month){
+						salida.append(a.getMonthName()+" ");
+					}
+				}
+			break;
+			default:
+				salida.append(" Ninguno");
+			break;
+				}
+			return salida.toString();
+	}
+
+
+
+	
 
 	
 		
